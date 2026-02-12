@@ -4,6 +4,7 @@ import { Link } from "expo-router";
 import {ThemedText} from '../components/ThemedText';
 //import {Header} from '../components/Header';
 import EleveService from '../services/EleveService';
+import ClasseService from '../services/ClasseService';
 import { SafeAreaFrameContext, SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
@@ -31,6 +32,8 @@ export default function Index() {
         </View>
       </View>
         */}
+
+          <View style={{margin: 10}}><ClasseService/></View>
 
           <Text style={{fontSize: 20, fontWeight: 'bold', margin: 10}}> Liste des élèves: </Text>
         <EleveService/>

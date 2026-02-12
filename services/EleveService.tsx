@@ -6,7 +6,7 @@ export default function ElevesService() {
   const [eleves, setEleves] = useState<Eleve[]>([]);
 
   useEffect(() => {
-    fetch("http://192.168.1.184:8080/eleves") //récu^ère les données
+    fetch("http://192.168.1.184:8080/classrooms/1/eleves") //récu^ère les données
       .then(response => response.json())  //transforme en json
       .then(data => {
         setEleves(data); //set Eleves avec data
