@@ -1,0 +1,48 @@
+import {StyleSheet, Text, View } from "react-native";
+import React, { useState, useEffect } from 'react'; 
+import { Link } from "expo-router";
+import {ThemedText} from '../components/ThemedText';
+//import {Header} from '../components/Header';
+import EleveService from '../services/EleveService';
+import { SafeAreaFrameContext, SafeAreaView } from "react-native-safe-area-context";
+
+export default function Index() {
+  return (
+    // Sans flex, la boîte ne fait que la taille de son contenu et coupe le reste
+    <View style={{ flex: 1 , backgroundColor:"#d2ee9d"}}>
+              {/*Ca c'est le header*/}
+      <ThemedText variant= 'header'>
+        <ThemedText variant= 'headerTitle'>ClassFlow</ThemedText>
+      </ThemedText>
+
+      <View style={{ flex: 1 , backgroundColor:"#ffffff", margin: 10, borderRadius: 10}}>
+      {/*
+      {/*La boite hello world*
+      <View style={styles.container}>
+        <Text style={{backgroundColor: "#ee9d9d", padding: 50,}}>Hello World !</Text>
+        
+        {/* Ajoute un peu de marge pour séparer les liens du carré rose *
+        <View style={{ marginTop: 20 }}> 
+            <Link href="/Spring"><Text>Vers le Spring</Text></Link>
+        </View>
+        
+        <View style={{ marginTop: 10 }}>
+            <Link href={{pathname: "/eleves/[id]", params: {id: 3}}}><Text>Eleve id n°3</Text></Link>
+        </View>
+      </View>
+        */}
+
+          <Text style={{fontSize: 20, fontWeight: 'bold', margin: 10}}> Liste des élèves: </Text>
+        <EleveService/>
+    </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  }
+});
