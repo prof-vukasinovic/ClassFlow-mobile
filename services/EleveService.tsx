@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Eleve } from "../constants/Eleve";
-import { Text, View, ActivityIndicator, ScrollView } from "react-native";
+import { Text, View, ActivityIndicator, ScrollView, TouchableOpacity } from "react-native";
+import { useRouter } from "expo-router";
 
 type Props = {
     classeId: number; // Ca c'est l'argument qu'on reçoit du parent
@@ -10,6 +11,7 @@ export default function ElevesService({ classeId }: Props) {
   const [eleves, setEleves] = useState<Eleve[]>([]); //Pareil que dans ClasseService
   const [loading, setLoading] = useState(true);
 
+  const router = useRouter();
 
   useEffect(() => {
     setLoading(true); // On affiche le chargement pendant qu'on change de classe
@@ -41,8 +43,20 @@ export default function ElevesService({ classeId }: Props) {
     // J'ai mis une ScrollView pour pouvoir scroller si la liste est longue
     <ScrollView style={{ height: 300 }}> 
       {eleves.map(eleve => (
-        <View 
+        <TouchableOpacity
           key={eleve.id} 
+          onPress={() => {
+              console.log("Clic sur l'élève : " + eleve.nom);
+              // Cela va chercher le fichier app/eleve/[id].tsx
+              router.push({
+        pathname: "/eleves/[id]", 
+        params: { id: eleve.id,
+                  nom: eleve.nom,      // Hop, on passe le nom
+                  prenom: eleve.prenom,
+                  //classe: eleve.classe
+         } 
+      });
+          }}
           style={{
             backgroundColor: "#f5f5f5",
             marginVertical: 5,
@@ -50,9 +64,11 @@ export default function ElevesService({ classeId }: Props) {
             borderRadius: 8,
             elevation: 2     //ca c'est pour l'ombrage mais je crois que c'est seulement poiur android.
           }}      //Faudra que je verifis ca plus tard
+
+          
         >
           <Text style={{ fontSize: 16 }}>{eleve.nom} {eleve.prenom}</Text>
-        </View>
+        </TouchableOpacity>
       ))}
       
       {eleves.length === 0 && <Text>Aucun élève dans cette classe.</Text>}
