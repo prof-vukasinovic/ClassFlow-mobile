@@ -33,12 +33,10 @@ export default function NouvelleRemarque() {
         })
         .then(() => {
             setLoading(false);
-            // Une fois fini, on retourne en arrière
-            // (Note: La liste précédente ne se mettra pas à jour automatiquement sans configuration avancée, 
-            // mais la donnée est bien en base)
-            Alert.alert("Succès", "Remarque ajoutée !", [
+            {/*Alert.alert("For Sure!", "Je crois que la remarque a été ajoutée ", [
                 { text: "OK", onPress: () => router.back() }
-            ]);
+            ]);*/}
+            router.back();
         })
         .catch(err => {
             console.error(err);
@@ -47,38 +45,30 @@ export default function NouvelleRemarque() {
         });
     };
 
-    return (
-        <View style={{ flex: 1, backgroundColor: "#ffffff", padding: 20 }}>
-            {/* Header simple */}
-            <View style={{ marginBottom: 20 }}>
-                <Text style={{ fontSize: 18, color: "gray", marginTop:20 }}>Nouvelle remarque</Text>
-            </View>
+return (
+        <View style={{ flex: 1, padding: 20, backgroundColor: 'white' }}>
+            
+            <Text style={{ fontSize: 22, marginTop: 20, marginBottom:10, fontWeight: 'bold' }}>Nouvelle remarque</Text>
 
             <TextInput
-                style={styles.inputGeant}
-                multiline={true} // Permet d'écrire sur plusieurs lignes
-                textAlignVertical="top" // Le texte commence en haut
-                placeholder="Écrivez votre observation ici..."
-                autoFocus={true} // Le clavier s'ouvre direct (en vrai on peut l"enleverje pe,se)
+                style={styles.input}
+                multiline={true}
+                placeholder="Écrire ici..."
                 value={texte}
                 onChangeText={setTexte}
             />
 
-            <View style={styles.boutonsContainer}>
-                <TouchableOpacity onPress={() => router.back()} style={styles.btnAnnuler}>
-                    <Text style={{ color: "gray" }}>Annuler</Text>
+            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                <TouchableOpacity onPress={() => router.back()} style={styles.btn}>
+                    <Text>Annuler</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity 
                     onPress={valider} 
-                    style={[styles.btnValider, { opacity: texte ? 1 : 0.5 }]}
-                    disabled={!texte || loading}
+                    disabled={loading || !texte}
+                    style={[styles.btn, { backgroundColor: "#ddd" }]}
                 >
-                    {loading ? (
-                        <ActivityIndicator color="white" />
-                    ) : (
-                        <Text style={{ color: "white", fontWeight: "bold", fontSize: 18 }}>Valider</Text>
-                    )}
+                    {loading ? <ActivityIndicator color="black"/> : <Text>Valider</Text>}
                 </TouchableOpacity>
             </View>
         </View>
@@ -86,27 +76,20 @@ export default function NouvelleRemarque() {
 }
 
 const styles = StyleSheet.create({
-    inputGeant: {
-        flex: 1, // Prend toute la place dispo au milieu
-        fontSize: 18,
-        padding: 15,
-        backgroundColor: "#f9f9f9",
-        borderRadius: 10,
+    input: {
+        flex: 1,
+        borderWidth: 1,
+        borderColor: "black",
+        padding: 10,
         marginBottom: 20,
+        fontSize: 16,
+        textAlignVertical: "top"
     },
-    boutonsContainer: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center"
-    },
-    btnAnnuler: {
-        padding: 15,
-    },
-    btnValider: {
-        backgroundColor: "#4A90E2",
-        paddingVertical: 15,
-        paddingHorizontal: 30,
-        borderRadius: 30, // Bouton arrondi
-        elevation: 5
+    btn: {
+        borderWidth: 1,
+        padding: 10,
+        minWidth: 80,
+        alignItems: 'center',
+        marginBottom: 30,
     }
 });
