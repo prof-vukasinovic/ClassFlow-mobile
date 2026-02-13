@@ -1,46 +1,61 @@
 import { useEffect, useState } from "react";
-import {Eleve} from "../constants/Eleve";
-import {Text, View} from "react-native"
+import { Eleve } from "../constants/Eleve";
+import { Text, View, ActivityIndicator, ScrollView } from "react-native";
 
-export default function ElevesService() {
-  const [eleves, setEleves] = useState<Eleve[]>([]);
+type Props = {
+    classeId: number; // Ca c'est l'argument qu'on reçoit du parent
+};
+
+export default function ElevesService({ classeId }: Props) {
+  const [eleves, setEleves] = useState<Eleve[]>([]); //Pareil que dans ClasseService
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
-    fetch("http://192.168.1.184:8080/classrooms/1/eleves") //récu^ère les données
-      .then(response => response.json())  //transforme en json
+    setLoading(true); // On affiche le chargement pendant qu'on change de classe
+    
+    console.log("Chargement des élèves pour la classe : " + classeId);
+
+    fetch(`http://192.168.1.184:8080/classrooms/${classeId}/eleves`)
+      .then(response => response.json())
       .then(data => {
-        setEleves(data); //set Eleves avec data
+        if (Array.isArray(data)) {
+            setEleves(data);
+        } else {
+            setEleves([]);
+        }
+        setLoading(false);
       })
       .catch(error => {
         console.error("Erreur API :", error); 
+        setLoading(false);
       });
-  }, []);
+
+  }, [classeId]); // D'habitude c'est des "[]" vide mais la on utilise classeId ce qui signifie que si classeId change (genre id 1 à id 2), React relance le fetch
+                  // ce qui permet en gros le fait que l'app soit responsive
+
+
+  if (loading) return <ActivityIndicator color="blue" />;
 
   return (
-    <>
-{eleves.map(eleve => (
-  <View 
-    key={eleve.id} 
-    style={{
-      backgroundColor: "#f5f5f5",
-      marginVertical: 8,
-      padding: 15,
-      borderRadius: 10,
-      shadowColor: "#000",  //Les 4 finales sont des propiétés pour les ombres des cases 
-      shadowOpacity: 0.1,  
-      shadowRadius: 4,
-      elevation: 3
-    }}
-  >
-    <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-      {eleve.nom} {eleve.prenom}
-    </Text>
-
-    {/*<Text style={{ fontSize: 14, color: "#555" }}>
-      ID : {eleve.id}
-    </Text>*/}
-  </View>
-))}
-    </>//on récupère les id pour diferencier les eleves et on ecrit id , nom...
+    // J'ai mis une ScrollView pour pouvoir scroller si la liste est longue
+    <ScrollView style={{ height: 300 }}> 
+      {eleves.map(eleve => (
+        <View 
+          key={eleve.id} 
+          style={{
+            backgroundColor: "#f5f5f5",
+            marginVertical: 5,
+            padding: 10,
+            borderRadius: 8,
+            elevation: 2
+          }}
+        >
+          <Text style={{ fontSize: 16 }}>{eleve.nom} {eleve.prenom}</Text>
+        </View>
+      ))}
+      
+      {eleves.length === 0 && <Text>Aucun élève dans cette classe.</Text>}
+    </ScrollView>
   );
 }

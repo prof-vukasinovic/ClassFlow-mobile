@@ -1,61 +1,56 @@
+import { Picker } from "@react-native-picker/picker";
 import React, { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
-// On importe ton interface
-import { Classe } from "../constants/Classe"; 
+import { Classe } from "../constants/Classe";
 
-export default function ClasseService() {
+type Props = {     //en gros un Prop ca sert transmettres des donnees et des fonctions entre composants (parent/enfant)
+  idActuel: number;   //Ici, idActuel est l'id qui est sélect et au changement, on prend l'id décidé
+  onChangement: (id: number) => void; //onChangement est un listener sur un id et est de type void
+};
 
-  const [maClasse, setMaClasse] = useState<Classe | null>(null);
-  const [loading, setLoading] = useState(true);
+export default function ClasseService({ idActuel, onChangement }: Props) { //la fonction prend un objet Props en argument qui a ces attributs
+  const [classes, setClasses] = useState<Classe[]>([]);
+  const [loading, setLoading] = useState(true); // C'est des etats avec leur variables et leur setteer
 
-  useEffect(() => {
-    // --- CORRECTION MAJEURE ICI ---
-    // 1. On enlève "/eleves" à la fin pour récupérer la Classe entière.
-    // 2. On remplace "{id}" par un vrai chiffre, par exemple "1".
-    const idDeTest = 1; 
-
-    console.log(`Tentative de récupération de la classe n°${idDeTest}...`);
-
-    fetch(`http://192.168.1.184:8080/classrooms/${idDeTest}`) 
-      .then(response => {
-          console.log("Statut HTTP:", response.status);
-          return response.json();
-      }) 
+  useEffect(() => {    //Je suis pas sur mais je crois que c'ets un peu l'équivalent du constructeur
+    let isMounted = true;  //comme on va jouer avec des éléments qui ont beosins de temps, j'ai beosin de ca pour empecher l'app de crash
+    fetch("http://192.168.1.184:8080/classrooms") //Le fetch pour récupérer l'adresse du spring
+      .then(response => response.json())
       .then(data => {
-        console.log("Données reçues du Backend :", data);
-        setMaClasse(data); // Le JSON correspond maintenant à ton interface Classe
-        setLoading(false);
+        if(isMounted) {
+             const liste = Array.isArray(data) ? data : (data.content || []);
+             setClasses(liste);    //on remplit la liste
+             setLoading(false); // On a fini de charger
+        }
       })
-      .catch(error => {
-          console.error("Erreur:", error);
-          setLoading(false);
+      .catch(err => {
+          console.error(err);
+          if(isMounted) setLoading(false);
       });
+      
+    return () => { isMounted = false; }; //on remet a false pour pas que ca crash
   }, []);
 
-  if (loading) {
-      return <ActivityIndicator size="large" color="#0000ff" style={{marginTop: 50}} />;
-  }
+  if (loading) return <ActivityIndicator color="green" />;
+  if (classes.length === 0) return <Text>Aucune classe disponible.</Text>;
 
   return (
-    <View style={{ padding: 50 }}>
-      <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 20 }}>
-        Détails de la Classe
-      </Text>
-
-      {/* Affichage sécurisé */}
-      {maClasse ? (
-          <View>
-            <Text style={{fontSize: 18}}>ID : {maClasse.id}</Text>
-            <Text style={{fontSize: 18, color: 'blue'}}>Nom : {maClasse.nom}</Text>
-            
-            {/* Petit bonus : afficher le nombre d'élèves si dispo */}
-            {/* Attention : Vérifie si 'eleves' est un tableau ou un objet Groupe dans ton interface */}
-            {/* <Text>Nombre d'élèves : {Array.isArray(maClasse.eleves) ? maClasse.eleves.length : 'N/A'}</Text> */}
-          </View>
-      ) : (
-          <Text style={{color: 'red'}}>Classe introuvable ou erreur serveur.</Text>
-      )}
-      
+    <View style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 5, backgroundColor: 'white' }}>
+      {/* @ts-ignore */}
+      <Picker
+        selectedValue={idActuel} 
+        onValueChange={(itemValue) => {
+             const nouvelId = Number(itemValue);
+             // On vérifie que c'est un ID valide avant d'appeler le parent
+             if (!isNaN(nouvelId) && nouvelId !== idActuel) {
+                 onChangement(nouvelId);
+             }
+        }}
+      >
+        {classes.map((c) => (
+            <Picker.Item key={c.id} label={c.nom} value={c.id} />
+        ))}
+      </Picker>
     </View>
   );
 }

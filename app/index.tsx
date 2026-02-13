@@ -8,10 +8,11 @@ import ClasseService from '../services/ClasseService';
 import { SafeAreaFrameContext, SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
+  const [selectedId, setSelectedId] = useState<number>(1);
   return (
     // Sans flex, la boîte ne fait que la taille de son contenu et coupe le reste
     <View style={{ flex: 1 , backgroundColor:"#d2ee9d"}}>
-              {/*Ca c'est le header*/}
+              {/*Ca c'est le header, j'ai mis du temps a le faire*/}
       <ThemedText variant= 'header'>
         <ThemedText variant= 'headerTitle'>ClassFlow</ThemedText>
       </ThemedText>
@@ -32,11 +33,12 @@ export default function Index() {
         </View>
       </View>
         */}
+      <ClasseService idActuel={selectedId} onChangement={(nouvelId) => setSelectedId(nouvelId)} />
 
-          <View style={{margin: 10}}><ClasseService/></View>
-
-          <Text style={{fontSize: 20, fontWeight: 'bold', margin: 10}}> Liste des élèves: </Text>
-        <EleveService/>
+          <Text style={{fontSize: 20, fontWeight: 'bold', marginVertical: 10}}> 
+            Liste des élèves de la classe {selectedId} : 
+          </Text>
+          <EleveService classeId={selectedId} />
     </View>
     </View>
   );
