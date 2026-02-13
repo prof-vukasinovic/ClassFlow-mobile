@@ -22,7 +22,7 @@ export default function eleve() {
         </ThemedText>
 
         <View style={{ flex: 1 , backgroundColor:"#ffffff", margin: 10, borderRadius: 10}}>
-          <TouchableOpacity  onPress={() =>router.push({pathname: "/"})}><Text style={{margin: 10, fontWeight: 'bold', fontSize: 20}}> {"<---"} Retour</Text></TouchableOpacity>
+          <TouchableOpacity  onPress={() =>router.back()}><Text style={{margin: 10, fontWeight: 'bold', fontSize: 20}}> {"<---"} Retour</Text></TouchableOpacity>
             <Text style={{fontSize: 20, margin: 10 }}> <Text style={{  fontWeight: 'bold' }}>Nom: </Text> {nom}</Text>
             <Text style={{fontSize: 20, margin: 10 }}> <Text style={{  fontWeight: 'bold' }}>Prénom: </Text> {prenom}</Text>
             {/*<Text> Classe: {classe}</Text>*/}
@@ -45,6 +45,15 @@ export default function eleve() {
                 )}
                 ListEmptyComponent={<Text style={{fontStyle:'italic', marginTop:20, marginLeft:20}}>Aucune remarque.</Text>}
             />
+            <TouchableOpacity  onPress={() =>router.push({pathname: "/remarques/nouveau"})}>
+            <View style={{backgroundColor: "#4A90E2", // Un beau bleu au lieu du gris
+        paddingVertical: 15,      
+        paddingHorizontal: 20,
+        borderRadius: 10,       
+        marginVertical: 50,     
+        elevation: 3,       // Petite ommbre
+        alignItems: "center",   // Ca ca centre le texte 
+        justifyContent: "center"}}><Text>Ajouter une Remarque</Text></View></TouchableOpacity>
         </View>
       </View>
     );
