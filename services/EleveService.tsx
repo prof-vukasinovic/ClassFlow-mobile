@@ -48,8 +48,8 @@ export default function ElevesService({ classeId }: Props) {
             marginVertical: 5,
             padding: 10,
             borderRadius: 8,
-            elevation: 2
-          }}
+            elevation: 2     //ca c'est pour l'ombrage mais je crois que c'est seulement poiur android.
+          }}      //Faudra que je verifis ca plus tard
         >
           <Text style={{ fontSize: 16 }}>{eleve.nom} {eleve.prenom}</Text>
         </View>
