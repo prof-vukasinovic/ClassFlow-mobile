@@ -2,6 +2,7 @@ import { Picker } from "@react-native-picker/picker";
 import React, { useEffect, useState } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
 import { Classe } from "../constants/Classe";
+import { API_URL } from "../constants/config";
 
 type Props = {     //en gros un Prop ca sert transmettres des donnees et des fonctions entre composants (parent/enfant)
   idActuel: number;   //Ici, idActuel est l'id qui est sélect et au changement, on prend l'id décidé
@@ -14,7 +15,7 @@ export default function ClasseService({ idActuel, onChangement }: Props) { //la 
 
   useEffect(() => {    //Je suis pas sur mais je crois que c'ets un peu l'équivalent du constructeur
     let isMounted = true;  //comme on va jouer avec des éléments qui ont beosins de temps, j'ai beosin de ca pour empecher l'app de crash
-    fetch("http://192.168.1.184:8080/classrooms") //Le fetch pour récupérer l'adresse du spring
+    fetch(`${API_URL}/classrooms`) //Le fetch pour récupérer l'adresse du spring
       .then(response => response.json())
       .then(data => {
         if(isMounted) {

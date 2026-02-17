@@ -6,15 +6,19 @@ import {ThemedText} from '../components/ThemedText';
 import EleveService from '../services/EleveService';
 import ClasseService from '../services/ClasseService';
 import { SafeAreaFrameContext, SafeAreaView } from "react-native-safe-area-context";
+import { Image } from 'react-native';
 
 export default function Index() {
   const [selectedId, setSelectedId] = useState<number>(1);
+  const localImage = require('../assets/images/fleur.png');
+
   return (
     // Sans flex, la boîte ne fait que la taille de son contenu et coupe le reste
     <View style={{ flex: 1 , backgroundColor:"#d2ee9d"}}>
               {/*Ca c'est le header, j'ai mis du temps a le faire*/}
       <ThemedText variant= 'header'>
-        <ThemedText variant= 'headerTitle'>ClassFlow</ThemedText>
+        <ThemedText variant= 'headerTitle'>ClassFlow </ThemedText>
+        <Image source={localImage} style={{ width: 30, height: 30 }} />
       </ThemedText>
 
       <View style={{ flex: 1 , backgroundColor:"#ffffff", margin: 10, borderRadius: 10}}>

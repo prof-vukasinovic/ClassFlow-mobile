@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator,
 import React, { useState } from 'react';
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { ThemedText } from '../../components/ThemedText';
+import { API_URL } from "../../constants/config";
 
 export default function NouvelleRemarque() {
     const router = useRouter();
@@ -19,7 +20,7 @@ export default function NouvelleRemarque() {
 
         setLoading(true);
 
-        fetch("http://192.168.1.184:8080/remarques", {
+        fetch(`${API_URL}/remarques`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

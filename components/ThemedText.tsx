@@ -3,10 +3,10 @@ import { TextProps, Text, StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
     header:{
-        padding: 22 , backgroundColor: "#d2ee9d"
+        padding: 0 , backgroundColor: "#d2ee9d", marginTop:35, marginLeft:20
     },
     headerTitle:{
-        fontSize: 24, fontWeight: 'bold'
+        fontSize: 25, fontWeight: 'bold'
     },
     
     body3:{

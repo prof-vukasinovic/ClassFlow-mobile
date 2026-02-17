@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Eleve } from "../constants/Eleve";
 import { Text, View, ActivityIndicator, ScrollView, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
+import { API_URL } from "../constants/config";
 
 type Props = {
     classeId: number; // Ca c'est l'argument qu'on reçoit du parent
@@ -18,7 +19,7 @@ export default function ElevesService({ classeId }: Props) {
     
     console.log("Chargement des élèves pour la classe : " + classeId);
 
-    fetch(`http://192.168.1.184:8080/classrooms/${classeId}/eleves`)
+    fetch(`${API_URL}/classrooms/${classeId}/eleves`)
       .then(response => response.json())
       .then(data => {
         if (Array.isArray(data)) {
@@ -54,6 +55,7 @@ export default function ElevesService({ classeId }: Props) {
                   nom: eleve.nom,      // Hop, on passe le nom
                   prenom: eleve.prenom,
                   //classe: eleve.classe
+                  classeId: classeId
          } 
       });
           }}
