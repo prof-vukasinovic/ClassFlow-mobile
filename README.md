@@ -7,7 +7,6 @@ La partie mobile de l'appli ClassFlow (gestion de classe pour les professeurs)
 2) Récupérer l'adresse IPv4
 3) Ouvrir le fichier "constants/config" et déposer l'adresse IP
 
-##
 
 #Remarques
 Il existe deux types de remarques: les remarques prédéfinis et les remarques écrites.
