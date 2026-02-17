@@ -49,7 +49,7 @@ export default function NouvelleRemarque() {
 return (
         <View style={{ flex: 1, padding: 20, backgroundColor: 'white' }}>
             
-            <Text style={{ fontSize: 22, marginTop: 20, marginBottom:10, fontWeight: 'bold' }}>Nouvelle remarque</Text>
+            <Text style={{ fontSize: 22, marginTop: 20, marginBottom:10, fontWeight: 'bold'}}>Nouvelle remarque</Text>
 
             <TextInput
                 style={styles.input}
@@ -67,7 +67,7 @@ return (
                 <TouchableOpacity 
                     onPress={valider} 
                     disabled={loading || !texte}
-                    style={[styles.btn, { backgroundColor: "#ddd" }]}
+                    style={[styles.btn, { backgroundColor: "#d2ee9d" }]}
                 >
                     {loading ? <ActivityIndicator color="black"/> : <Text>Valider</Text>}
                 </TouchableOpacity>

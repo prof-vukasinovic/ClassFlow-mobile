@@ -42,7 +42,7 @@ export default function ElevesService({ classeId }: Props) {
 
   return (
     // J'ai mis une ScrollView pour pouvoir scroller si la liste est longue
-    <ScrollView style={{ height: 300 }}> 
+    <ScrollView style={{ height: 300, marginLeft:5, marginRight: 5}}> 
       {eleves.map(eleve => (
         <TouchableOpacity
           key={eleve.id} 

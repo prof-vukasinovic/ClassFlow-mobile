@@ -181,7 +181,7 @@ const nouvelleRemarque = () => {
                     paddingVertical: 15,      
                     paddingHorizontal: 20,
                     borderRadius: 10,       
-                    marginVertical: 10,     
+                    marginVertical: 50,     
                     elevation: 3,       
                     marginHorizontal: 10,
                     alignItems: "center",   

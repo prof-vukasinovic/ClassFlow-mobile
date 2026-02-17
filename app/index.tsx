@@ -39,7 +39,7 @@ export default function Index() {
         */}
       <ClasseService idActuel={selectedId} onChangement={(nouvelId) => setSelectedId(nouvelId)} />
 
-          <Text style={{fontSize: 20, fontWeight: 'bold', marginVertical: 10}}> 
+          <Text style={{fontSize: 20, fontWeight: 'bold', marginVertical: 10, marginLeft: 5}}> 
             Liste des élèves de la classe: 
           </Text>
           <EleveService classeId={selectedId} />

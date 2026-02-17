@@ -36,9 +36,9 @@ export default function ClasseService({ idActuel, onChangement }: Props) { //la 
   if (classes.length === 0) return <Text>Aucune classe disponible.</Text>;
 
   return (
-    <View style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 5, backgroundColor: 'white' }}>
+    <View style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 5, backgroundColor: 'white'}}>
       {/* @ts-ignore */}
-      <Picker
+      <Picker 
         selectedValue={idActuel} 
         onValueChange={(itemValue) => {
              const nouvelId = Number(itemValue);
