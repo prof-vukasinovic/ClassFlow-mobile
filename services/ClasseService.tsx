@@ -1,6 +1,6 @@
 import { Picker } from "@react-native-picker/picker";
 import React, { useEffect, useState } from "react";
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator, Platform } from "react-native";
 import { Classe } from "../constants/Classe";
 import { API_URL } from "../constants/config";
 
@@ -38,20 +38,35 @@ export default function ClasseService({ idActuel, onChangement }: Props) { //la 
 
   
   return (
-    <View style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 5, backgroundColor: 'white'}}>
+<View style={{ 
+        backgroundColor: 'white',
+        borderRadius: 10, // On met des bords arrondis pour tout le monde, c'est plus joli :)
+        marginVertical: 10,
+        overflow: 'hidden', // Ca, ca permet de bien garder la roulette à l'intérieur de la boîte
+        ...(Platform.OS === 'android' && {
+            borderWidth: 1, 
+            borderColor: '#ccc', 
+        })
+    }}>
       {/* @ts-ignore */}
-      <Picker 
+      <Picker
         selectedValue={idActuel} 
         onValueChange={(itemValue) => {
              const nouvelId = Number(itemValue);
-             // On vérifie que c'est un ID valide avant d'appeler le parent
              if (!isNaN(nouvelId) && nouvelId !== idActuel) {
                  onChangement(nouvelId);
              }
         }}
+        style={Platform.OS === 'ios' ? { height: 150, width: '100%' } : { width: '100%' }}
+        itemStyle={Platform.OS === 'ios' ? { fontSize: 20, color: 'black' } : {}}
       >
         {classes.map((c) => (
-            <Picker.Item key={c.id} label={c.nom} value={c.id} />
+            <Picker.Item 
+                key={c.id} 
+                label={c.nom} 
+                value={c.id} 
+                color={Platform.OS === 'android' ? 'black' : undefined} 
+            />
         ))}
       </Picker>
     </View>

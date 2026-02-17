@@ -24,7 +24,7 @@ export default function eleve() {
     const supprimerRemarque = (remarqueId: number) => { //C'est la fonction pour supprimer une remarque
         Alert.alert(                       //Je donne remarqueId au code pour qu'il sache quel remarque sup
             "Suppression",   //Petite fenêyte pour etre sure
-            "Es-tu sûr de vouloir supprimer cette remarque ?",
+            "Etes-vous sûr de vouloir supprimer cette remarque ?",
             [
                 { text: "Annuler", style: "cancel" },     //littéralemnt les boutons  
                 { text: "Supprimer", style: "destructive",
@@ -124,7 +124,7 @@ const nouvelleRemarque = () => {
                       } 
                 },
                 { 
-                    text: "Écrite",
+                    text: "Libre",
                     onPress: () => {
                         router.push({
                             pathname: "/remarques/nouveau", 

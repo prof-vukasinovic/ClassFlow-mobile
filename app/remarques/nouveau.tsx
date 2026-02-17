@@ -1,5 +1,5 @@
 // Fichier: app/remarques/nouveau.tsx
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator, Alert } from "react-native";
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ActivityIndicator, Alert, TouchableWithoutFeedback, Keyboard, ScrollView } from "react-native";
 import React, { useState } from 'react';
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { ThemedText } from '../../components/ThemedText';
@@ -47,7 +47,8 @@ export default function NouvelleRemarque() {
     };
 
 return (
-        <View style={{ flex: 1, padding: 20, backgroundColor: 'white' }}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={{ flex: 1, padding: 35, backgroundColor: 'white' }}>
             
             <Text style={{ fontSize: 22, marginTop: 20, marginBottom:10, fontWeight: 'bold'}}>Nouvelle remarque</Text>
 
@@ -73,6 +74,7 @@ return (
                 </TouchableOpacity>
             </View>
         </View>
+        </TouchableWithoutFeedback>
     );
 }
 
@@ -84,7 +86,9 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 20,
         fontSize: 16,
-        textAlignVertical: "top"
+        textAlignVertical: "top",
+        backgroundColor: '#f2ffda',
+        maxHeight: 300,
     },
     btn: {
         borderWidth: 1,

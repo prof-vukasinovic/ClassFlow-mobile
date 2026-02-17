@@ -11,6 +11,7 @@ type Props = {
 export default function ElevesService({ classeId }: Props) {
   const [eleves, setEleves] = useState<Eleve[]>([]); //Pareil que dans ClasseService
   const [loading, setLoading] = useState(true);
+  const [dernierTireId, setDernierTireId] = useState<number | null>(null);
 
   const router = useRouter();
 
@@ -39,30 +40,33 @@ export default function ElevesService({ classeId }: Props) {
 
 
   if (loading) return <ActivityIndicator color="blue" />;
+
   const tirerAuSort = () => {
-      // 1. Sécurité : On vérifie s'il y a des élèves
       if (eleves.length === 0) {
           Alert.alert("Oups !", "Il n'y a aucun élève dans cette classe.");
           return;
       }
-
-      // 2. On choisit un index au hasard (entre 0 et la taille de la liste)
-      const indexAleatoire = Math.floor(Math.random() * eleves.length);
-      
-      // 3. On récupère l'élève correspondant à cet index
-      const lHeureuxElu = eleves[indexAleatoire];
-
-      // 4. On affiche le gagnant dans une belle alerte
+      let lHeureuxElu;
+      if (eleves.length > 1) {
+          let indexAleatoire;
+          do {
+              indexAleatoire = Math.floor(Math.random() * eleves.length);
+              lHeureuxElu = eleves[indexAleatoire];
+          } while (lHeureuxElu.id === dernierTireId);
+      } else {
+          lHeureuxElu = eleves[0];
+      }
+      setDernierTireId(lHeureuxElu.id);
       Alert.alert(
-          "🎲 Tirage au sort", 
-          `C'est au tour de :\n\n⭐ ${lHeureuxElu.prenom} ${lHeureuxElu.nom} ⭐`,
+          "Tirage au sort", 
+          `\nL'élève tiré est : ${lHeureuxElu.prenom} ${lHeureuxElu.nom}`,
           [{ text: "OK", style: "default" }]
       );
   };
 
   return (
     <View>
-    <TouchableOpacity onPress={tirerAuSort}><Text>Tirer un élève au hasard</Text></TouchableOpacity>
+    <TouchableOpacity onPress={tirerAuSort} style={{margin:10, marginLeft:90, borderRadius:9, borderWidth: 1, marginRight:115, padding:2, backgroundColor: '#d2ee9d'}}><Text>Tirer élève au hasard</Text></TouchableOpacity>
     {/*J'ai mis une ScrollView pour pouvoir scroller si la liste est longue*/}
     <ScrollView style={{ height: 300, marginLeft:5, marginRight: 5}}> 
       {eleves.map(eleve => (

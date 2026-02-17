@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View } from "react-native";
+import {Alert, StyleSheet, Text, Touchable, TouchableOpacity, View } from "react-native";
 import React, { useState, useEffect } from 'react'; 
 import { Link } from "expo-router";
 import {ThemedText} from '../components/ThemedText';
@@ -12,13 +12,23 @@ export default function Index() {
   const [selectedId, setSelectedId] = useState<number>(1);
   const localImage = require('../assets/images/fleur.png');
 
+  let tap = 0;
+  const EasterEgg1 = () =>{
+    tap++;
+    if (tap===7){
+      Alert.alert("Easter Egg", "Ceci est le premier Easter Egg de l'équipe ClassFlow. Essaye d'en trouver d'autres.");
+      tap=0;
+    }
+
+  }
+
   return (
     // Sans flex, la boîte ne fait que la taille de son contenu et coupe le reste
     <View style={{ flex: 1 , backgroundColor:"#d2ee9d"}}>
               {/*Ca c'est le header, j'ai mis du temps a le faire*/}
       <ThemedText variant= 'header'>
         <ThemedText variant= 'headerTitle'>ClassFlow </ThemedText>
-        <Image source={localImage} style={{ width: 30, height: 30 }} />
+        <TouchableOpacity onPress={EasterEgg1}><Image source={localImage} style={{ width: 50, height: 34 }} /></TouchableOpacity>
       </ThemedText>
 
       <View style={{ flex: 1 , backgroundColor:"#ffffff", margin: 10, borderRadius: 10}}>
