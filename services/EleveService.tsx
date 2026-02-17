@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Eleve } from "../constants/Eleve";
-import { Text, View, ActivityIndicator, ScrollView, TouchableOpacity } from "react-native";
+import { Text, View, ActivityIndicator, ScrollView, TouchableOpacity, Alert } from "react-native";
 import { useRouter } from "expo-router";
 import { API_URL } from "../constants/config";
 
@@ -39,9 +39,31 @@ export default function ElevesService({ classeId }: Props) {
 
 
   if (loading) return <ActivityIndicator color="blue" />;
+  const tirerAuSort = () => {
+      // 1. Sécurité : On vérifie s'il y a des élèves
+      if (eleves.length === 0) {
+          Alert.alert("Oups !", "Il n'y a aucun élève dans cette classe.");
+          return;
+      }
+
+      // 2. On choisit un index au hasard (entre 0 et la taille de la liste)
+      const indexAleatoire = Math.floor(Math.random() * eleves.length);
+      
+      // 3. On récupère l'élève correspondant à cet index
+      const lHeureuxElu = eleves[indexAleatoire];
+
+      // 4. On affiche le gagnant dans une belle alerte
+      Alert.alert(
+          "🎲 Tirage au sort", 
+          `C'est au tour de :\n\n⭐ ${lHeureuxElu.prenom} ${lHeureuxElu.nom} ⭐`,
+          [{ text: "OK", style: "default" }]
+      );
+  };
 
   return (
-    // J'ai mis une ScrollView pour pouvoir scroller si la liste est longue
+    <View>
+    <TouchableOpacity onPress={tirerAuSort}><Text>Tirer un élève au hasard</Text></TouchableOpacity>
+    {/*J'ai mis une ScrollView pour pouvoir scroller si la liste est longue*/}
     <ScrollView style={{ height: 300, marginLeft:5, marginRight: 5}}> 
       {eleves.map(eleve => (
         <TouchableOpacity
@@ -75,5 +97,6 @@ export default function ElevesService({ classeId }: Props) {
       
       {eleves.length === 0 && <Text>Aucun élève dans cette classe.</Text>}
     </ScrollView>
+    </View>
   );
 }

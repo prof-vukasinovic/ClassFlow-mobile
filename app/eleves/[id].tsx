@@ -62,7 +62,9 @@ const supprimerEleve = () => {
                 { text: "Annuler", style: "cancel", onPress: () => console.log("Annulation cliquée") },
                 { text: "Supprimer", style: "destructive",
                     onPress: () => {
-                        fetch(`${API_URL}/classrooms/${classeId}/eleves/${id}`, {
+                      const urlComplete = `${API_URL}/classrooms/${classeId}/eleves/${id}`;
+                      console.log(" URL envoyée au serveur :", urlComplete);
+                        fetch(urlComplete, {
                             method: "DELETE",
                         })
                         .then(res => {

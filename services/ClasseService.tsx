@@ -32,9 +32,11 @@ export default function ClasseService({ idActuel, onChangement }: Props) { //la 
     return () => { isMounted = false; }; //on remet a false pour pas que ca crash
   }, []);
 
-  if (loading) return <ActivityIndicator color="green" />;
+  if (loading) return <ActivityIndicator color="green" />; //cercle de chargement(c'est stylé je trouve)
   if (classes.length === 0) return <Text>Aucune classe disponible.</Text>;
 
+
+  
   return (
     <View style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 5, backgroundColor: 'white'}}>
       {/* @ts-ignore */}

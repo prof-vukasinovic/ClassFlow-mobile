@@ -35,6 +35,7 @@ export default function RemarquesPredefinies() {
         })
         .then(() => { //des que c bon, on revient a la page de l'élève
             setLoading(false);
+                                  console.log("Remarque ajoutée");
             router.back(); 
         })
         .catch(err => {
