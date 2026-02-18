@@ -39,7 +39,7 @@ Puis dans le terminal : `eas login`
 Dans le dossier du projet : `eas build:configure`
 6) Finalement, la génération de l'APK: `eas build -p android --profile production`
 7) Récupération de l'APK:
-Une fois la build terminée, Expo affiche un lien : https://expo.dev/accounts/xxxx/projects/xxxx/builds/xxxx
+Une fois la build terminée, Expo affiche un lien du style : https://expo.dev/accounts/xxxx/projects/xxxx/builds/xxxx
 Plus qu'a télécharger et transferer sur votre android.
 
 
