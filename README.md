@@ -33,13 +33,13 @@ Puis vérifier :
 commande: `npm install -g eas-cli`
 Puis vérifier: `eas --version`
 4) Connection à Expo
-Vous devez créer un compte Expo : https://expo.dev/signup
+Vous devez créer un compte Expo : https://expo.dev/signup .
 Puis dans le terminal : `eas login`
 5) Configuration de EAS dans le projet:
 Dans le dossier du projet : `eas build:configure`
 6) Finalement, la génération de l'APK: `eas build -p android --profile production`
 7) Récupération de l'APK:
-Une fois la build terminée, Expo affiche un lien du style : https://expo.dev/accounts/xxxx/projects/xxxx/builds/xxxx
+Une fois la build terminée, Expo affiche un lien du style : https://expo.dev/accounts/xxxx/projects/xxxx/builds/xxxx .
 Plus qu'a télécharger et transferer sur votre android.
 
 
