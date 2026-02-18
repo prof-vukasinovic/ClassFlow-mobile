@@ -9,14 +9,14 @@ La partie mobile de l'appli ClassFlow (gestion de classe pour les professeurs)
 
 
 #Remarques: 
-Il existe deux types de remarques: les remarques prédéfinis et les remarques écrites.
+#Il existe deux types de remarques: les remarques prédéfinis et les remarques écrites.
 Les remarques écrites sont libre tandis que les remarques prédéfinis sont imposés pour plus de rapidité.
 Il est possible d'ajouter modifier ou supprimer les remarques prédéfinis en modifiant la constante "const REMARQUES_PREDEFINIES" dans le fichier "predef.tsx"
 
 
 
 #Installation de l'APK: 
-Pour installer l'APK, il faut d'abord installer diverse ressources.
+#Pour installer l'APK, il faut d'abord installer diverse ressources.
 1) Installation de node.js:
 - Aller sur : https://nodejs.org
 - Télécharger la version LTS
