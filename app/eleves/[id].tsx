@@ -150,8 +150,8 @@ const nouvelleRemarque = () => {
 
         <View style={{ flex: 1 , backgroundColor:"#ffffff", margin: 10, borderRadius: 10}}>
           <TouchableOpacity  onPress={() =>router.back()}><Text style={{margin: 10, fontWeight: 'bold', fontSize: 20}}> {"<---"} Retour</Text></TouchableOpacity>
-            <Text style={{fontSize: 20, margin: 10 }}><Text style={{  fontWeight: 'bold' }}>Nom:</Text>{nom}</Text>
-            <Text style={{fontSize: 20, margin: 10 }}><Text style={{  fontWeight: 'bold' }}>Prénom:</Text>{prenom}</Text>
+            <Text style={{fontSize: 20, margin: 10 }}><Text style={{  fontWeight: 'bold' }}>Nom: </Text>{nom}</Text>
+            <Text style={{fontSize: 20, margin: 10 }}><Text style={{  fontWeight: 'bold' }}>Prénom: </Text>{prenom}</Text>
             {/*<Text> Classe: {classe}</Text>*/}
             <Text style = {{margin:10, fontSize: 20, fontWeight: 'bold', marginTop:10}}>Liste des Remarques:</Text>
             <FlatList
