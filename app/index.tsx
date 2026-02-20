@@ -1,16 +1,21 @@
 import {Alert, StyleSheet, Text, Touchable, TouchableOpacity, View } from "react-native";
 import React, { useState, useEffect } from 'react'; 
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import {ThemedText} from '../components/ThemedText';
 //import {Header} from '../components/Header';
 import EleveService from '../services/EleveService';
 import ClasseService from '../services/ClasseService';
 import { SafeAreaFrameContext, SafeAreaView } from "react-native-safe-area-context";
 import { Image } from 'react-native';
+import DropDownPicker from "react-native-dropdown-picker";
+import Deroulant from "../components/DevoirDeroulant"
+import DevoirDeroulant from "../components/DevoirDeroulant";
+
 
 export default function Index() {
   const [selectedId, setSelectedId] = useState<number>(1);
   const localImage = require('../assets/images/fleur.png');
+  const [devoirChoisi, setDevoirChoisi] = useState<string | null>(null);
 
   let tap = 0;
   const EasterEgg1 = () =>{
@@ -47,12 +52,15 @@ export default function Index() {
         </View>
       </View>
         */}
+
       <ClasseService idActuel={selectedId} onChangement={(nouvelId) => setSelectedId(nouvelId)} />
+          
+          <DevoirDeroulant onSelect={(value) => setDevoirChoisi(value)} />
 
           <Text style={{fontSize: 20, fontWeight: 'bold', marginVertical: 10, marginLeft: 5}}> 
             Liste des élèves de la classe: 
           </Text>
-          <EleveService classeId={selectedId} />
+          <EleveService classeId={selectedId} devoirChoisi={devoirChoisi}/>
     </View>
     </View>
   );

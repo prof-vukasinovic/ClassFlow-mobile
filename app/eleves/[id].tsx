@@ -19,6 +19,8 @@ export default function eleve() {
     //const remarques = params.remarquesData ? JSON.parse(params.remarquesData as string) : [];
 
     const [remarques, setRemarques] = useState<any[]>([]);
+    const [bavardages, setBavardages] = useState<any[]>([]);
+    const [devoirs, setDevoirs] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
     const supprimerRemarque = (remarqueId: number) => { //C'est la fonction pour supprimer une remarque
@@ -104,6 +106,30 @@ const supprimerEleve = () => {
         }
     };
 
+    const fetchBavardages = async () => { 
+        try {
+            const response = await fetch(`${API_URL}/eleves/${id}/bavardages`);
+            const data = await response.json();
+            if (Array.isArray(data)) {
+                setBavardages(data);
+            }
+        } catch (error) {
+            console.error("Erreur chargement bavardages:", error);
+        }
+    };
+
+        const fetchDevoirs = async () => { 
+        try {
+            const response = await fetch(`${API_URL}/eleves/${id}/devoirs-non-faits`);
+            const data = await response.json();
+            if (Array.isArray(data)) {
+                setDevoirs(data);
+            }
+        } catch (error) {
+            console.error("Erreur chargement devoirs:", error);
+        }
+    };
+
 const nouvelleRemarque = () => { 
         Alert.alert(        
             "Nouvelle remarque",
@@ -139,6 +165,8 @@ const nouvelleRemarque = () => {
   useFocusEffect(  // Cette fonction se relance à chaque fois que la page redevient visible
     useCallback(() => {
         fetchRemarques(); 
+        //fetchBavardages();
+        //fetchDevoirs();
     }, [id])
 );
 
@@ -154,20 +182,24 @@ const nouvelleRemarque = () => {
             <Text style={{fontSize: 20, margin: 10 }}><Text style={{  fontWeight: 'bold' }}>Prénom: </Text>{prenom}</Text>
             {/*<Text> Classe: {classe}</Text>*/}
             <Text style = {{margin:10, fontSize: 20, fontWeight: 'bold', marginTop:10}}>Liste des Remarques:</Text>
-            <FlatList
+<FlatList
                 data={remarques}
-                keyExtractor={(item) => item.id.toString()}
+                keyExtractor={(item, index) => index.toString()} 
                 renderItem={({ item }) => (
                     <View style={{
-                        margin: 10,
+                        flexDirection: 'row', 
+                        justifyContent: 'space-between',
+                        alignItems: 'center', 
+                        marginHorizontal: 10,
                         backgroundColor: '#f9f9f9', 
                         padding: 10, 
                         marginVertical: 5, 
                         borderRadius: 5,
                         borderLeftWidth: 4,
-                        borderLeftColor: '#ee9d9d'
+                        borderLeftColor: item.type === 'BAVARDAGE' ? '#c4e3f7' : (item.type === 'DEVOIR_NON_FAIT' ? '#f6ca79' : '#ee9d9d')
+
                     }}>
-                        <Text>{item.intitule}</Text>
+                        <Text style={{ flex: 1, marginRight: 10 }}>{item.intitule}</Text>
                         <TouchableOpacity onPress={()=>supprimerRemarque(item.id)}>
                           <Ionicons name="trash-outline" size={24} color="red" />
                       </TouchableOpacity>
