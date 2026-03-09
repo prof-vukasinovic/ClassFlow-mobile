@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "ProjetInge",
+    "name": "ClassFlow",
     "slug": "ProjetInge",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/fleur.png",
     "scheme": "projetinge",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,

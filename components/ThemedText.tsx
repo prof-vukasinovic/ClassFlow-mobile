@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 })
 
 type Props = TextProps &{
-    variant?: keyof typeof styles,    //Je croois que le ? signifie que c'est oprionnel
+    variant?: keyof typeof styles,    //le ? signifie que c'est oprionnel
     color?: string
 
 }

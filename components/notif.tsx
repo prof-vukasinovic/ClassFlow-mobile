@@ -20,7 +20,6 @@ export function Notif() {
     setTimeout(() => setMessage(null), 2000);
   };
 
-  // CORRECTION ICI : Ce n'est plus une fonction () =>, mais directement le résultat visuel !
   const NotifVue = message ? (
       <View
         style={{
@@ -36,6 +35,5 @@ export function Notif() {
       </View>
     ) : null;
 
-  // On renvoie la vue pré-calculée
   return { NotifVue, NotifBav, NotifDevoir };
 }

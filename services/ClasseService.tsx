@@ -13,7 +13,7 @@ export default function ClasseService({ idActuel, onChangement }: Props) { //la 
   const [classes, setClasses] = useState<Classe[]>([]);
   const [loading, setLoading] = useState(true); // C'est des etats avec leur variables et leur setteer
 
-  useEffect(() => {    //Je suis pas sur mais je crois que c'ets un peu l'équivalent du constructeur
+  useEffect(() => {    //c'ets un peu l'équivalent du constructeur
     let isMounted = true;  //comme on va jouer avec des éléments qui ont beosins de temps, j'ai beosin de ca pour empecher l'app de crash
     fetch(`${API_URL}/classrooms`) //Le fetch pour récupérer l'adresse du spring
       .then(response => response.json())

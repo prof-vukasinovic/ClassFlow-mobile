@@ -69,7 +69,7 @@ export default function Dropdown({ onSelect }: { onSelect: (value: string) => vo
             borderRadius: 8,
             backgroundColor: "#fff",
             overflow: "hidden",
-            maxHeight: 250, // Permet de scroller si la liste devient très longue au fil de l'année
+            maxHeight: 250, // ca ca oermet de scroller la liste
           }}
         >
           {options.map((opt) => (

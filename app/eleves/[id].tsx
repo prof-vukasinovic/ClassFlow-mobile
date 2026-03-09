@@ -162,6 +162,12 @@ const nouvelleRemarque = () => {
         );
     };
 
+    const formaterDate = (dateString: string) => {   //la fonc attend un para en entrée
+    if (!dateString) return ""; // comme l'app a crashé car il y a eu un probleme et qu'il y avait rien d'entrée dans la fonction, j'ai rajouté la sécurité.
+    const date = new Date(dateString);
+    return date.toLocaleDateString("fr-FR") + " à " + date.toLocaleTimeString("fr-FR", { hour: '2-digit', minute: '2-digit' });
+};
+
   useFocusEffect(  // Cette fonction se relance à chaque fois que la page redevient visible
     useCallback(() => {
         fetchRemarques(); 
@@ -200,6 +206,9 @@ const nouvelleRemarque = () => {
 
                     }}>
                         <Text style={{ flex: 1, marginRight: 10 }}>{item.intitule}</Text>
+                        <Text style={{ fontSize: 12, color: '#666', marginTop: 4, fontStyle: 'italic' }}>
+                            {formaterDate(item.createdAt)}
+                        </Text>
                         <TouchableOpacity onPress={()=>supprimerRemarque(item.id)}>
                           <Ionicons name="trash-outline" size={24} color="red" />
                       </TouchableOpacity>

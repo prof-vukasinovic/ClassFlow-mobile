@@ -4,11 +4,11 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { API_URL } from "../../constants/config";
 
 const REMARQUES_PREDEFINIES = [ //Liste des remarque prédéfini. Du coup vous pouvez en ajouter ou les modifier ici ;)
-    "Bavardages incessants pendant le cours.",
-    "Travail non fait à la maison.",
-    "Oubli de matériel récurrent.",
-    "Excellente participation aujourd'hui.",
-    "Travail sérieux et appliqué."
+    { texte: "Bavardages incessants pendant le cours.", type: "negatif" },
+    { texte: "Travail non fait à la maison.", type: "negatif" },
+    { texte: "Oubli de matériel récurrent.", type: "negatif" },
+    { texte: "Excellente participation aujourd'hui.", type: "positif" },
+    { texte: "Travail sérieux et appliqué.", type: "positif" }
 ];
 
 export default function RemarquesPredefinies() {
@@ -18,7 +18,7 @@ export default function RemarquesPredefinies() {
 
     const [loading, setLoading] = useState(false);
 
-    const valider = (texteChoisi: string) => { //la fonction prend en parametre un string
+    const valider = (texteChoisi: string) => { //la fpction prend en parametre un string
         setLoading(true);
 
         fetch(`${API_URL}/remarques`, {
@@ -62,10 +62,13 @@ export default function RemarquesPredefinies() {
                     {REMARQUES_PREDEFINIES.map((remarque, index) => (
                         <TouchableOpacity 
                             key={index} 
-                            style={styles.boutonRemarque}
-                            onPress={() => valider(remarque)} 
+                            style={[
+                                styles.boutonRemarque,
+                                { borderLeftColor: remarque.type === 'positif' ? '#8bc34a' : '#e57373' }
+                            ]}
+                            onPress={() => valider(remarque.texte)} 
                         >
-                            <Text style={styles.texteRemarque}>{remarque}</Text>
+                            <Text style={styles.texteRemarque}>{remarque.texte}</Text>
                         </TouchableOpacity>
                     ))}
                 </ScrollView>
